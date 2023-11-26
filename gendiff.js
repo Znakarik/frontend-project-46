@@ -23,5 +23,5 @@ program
         console.log(result);
     });
 
-let parse = program.parse();
-let opts = parse.opts();
+program.parse();
+
