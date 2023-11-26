@@ -22,6 +22,9 @@ jobs:
         uses: hexlet/project-action@release
         with:
           hexlet-id: ${{ secrets.HEXLET_ID }}
+      - name: npm install
+        run: npm install
+
       - name: run tests
         run: make test
 
