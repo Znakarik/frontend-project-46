@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import {program} from 'commander';
-import readFileIn from "./src/fileReaded.js";
-import parseDiff from "./src/parser.js";
+import readFileIn from "./src/fileReader.js";
+import getDiff from "./src/parser.js";
 
 program
     .version('0.1.0')
@@ -18,7 +18,7 @@ program
         const leftJson = JSON.parse(leftFileContent);
         const rightJson = JSON.parse(rightFileContent);
 
-        const result = parseDiff(leftJson, rightJson);
+        const result = getDiff(leftJson, rightJson);
 
         console.log(result);
     });

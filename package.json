@@ -13,7 +13,8 @@
     "commander": "^11.1.0",
     "figlet": "^1.7.0",
     "loadash": "^1.0.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "js-yaml" : "3.14.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
