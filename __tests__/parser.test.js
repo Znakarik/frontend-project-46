@@ -18,4 +18,15 @@ describe("suite", () => {
         // then
         expect(result).toEqual(expectedOutput);
     });
+
+    test("recursive (json)", () => {
+        const expectedResult = readFileIn('__fixtures__/recursive/expected.txt');
+
+        const result = parser(
+            '__fixtures__/recursive/left.json',
+            '__fixtures__/recursive/right.json'
+        );
+        console.log('result =>\n' + result);
+        expect(result).toEqual(expectedOutput);
+    });
 });
