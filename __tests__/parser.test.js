@@ -27,6 +27,6 @@ describe("suite", () => {
             '__fixtures__/recursive/right.json'
         );
         console.log('result =>\n' + result);
-        expect(result).toEqual(expectedOutput);
+        expect(result).toEqual(expectedResult);
     });
 });

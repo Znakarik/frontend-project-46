@@ -8,7 +8,7 @@ function parseDiff(leftFilePath, rightFilePath) {
 
     if (leftFilePath.endsWith(".json")) {
         return getDiff(JSON.parse(leftFileContent), JSON.parse(rightFileContent));
-    } else if (leftFilePath.endsWith(".yaml") || leftFilePath.endsWith(".yml")) {
+    } else if (leftFilePath.endsWith(".yaml")) {
         return getDiff(yaml.load(leftFileContent), yaml.load(rightFileContent));
     }
 }
