@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const buildTree = (leftTree, rightTree) => {
+const buildTree = (depth, leftTree, rightTree) => {
     const leftKeys = Object.keys(leftTree);
     const rightKeys = Object.keys(rightTree);
     const sortedUniqKeys = _.sortBy(_.union(leftKeys, rightKeys));
@@ -19,6 +19,7 @@ const buildTree = (leftTree, rightTree) => {
         if(isKeyAdded) {
             return {
                 type : 'added',
+                depth,
                 key, 
                 value: rightTree[key]
             };
@@ -30,6 +31,7 @@ const buildTree = (leftTree, rightTree) => {
         if(isKeyDeleted) {
             return {
                 type : 'removed',
+                depth, 
                 key, 
                 value :  leftTree[key]
             };
@@ -41,8 +43,9 @@ const buildTree = (leftTree, rightTree) => {
         if(isNested) {
                 return {
                     type : 'nested',
+                    depth,
                     key, 
-                    children : buildTree(leftTree[key], rightTree[key])
+                    children : buildTree(depth + 1, leftTree[key], rightTree[key])
                 };
             }
 
@@ -50,6 +53,7 @@ const buildTree = (leftTree, rightTree) => {
         if(leftTree[key] === rightTree[key]) {
             return {
                 type: 'noChanges',
+                depth,
                 key,
                 value : leftTree[key]
             }
@@ -57,6 +61,7 @@ const buildTree = (leftTree, rightTree) => {
 
         return {
             type: 'changed',
+            depth,
             key, 
             oldValue: leftTree[key],
             newValue: rightTree[key]
@@ -66,9 +71,11 @@ const buildTree = (leftTree, rightTree) => {
 }
 
 function analyzeTree(left, right) {
+    let depth = 0;
     return {
         type: 'root',
-        children: buildTree(left, right)
+        depth: depth,
+        children: buildTree(depth + 1, left, right)
     };
 }
 

@@ -115,7 +115,7 @@ const newJSON = {
 };
 
 
-console.log(compareJSON(oldJSON, newJSON));
+// console.log(compareJSON(oldJSON, newJSON));
 
 test.skip("", ()=> {
     console.log(compareJSON(oldJSON, newJSON));

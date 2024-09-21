@@ -1,31 +1,37 @@
 {
-    "type": "root",
-    "children": [
-      {
-        "type": "removed",
-        "key": "follow",
-        "value": false
-      },
-      {
-        "type": "noChanges",
-        "key": "host",
-        "value": "hexlet.io"
-      },
-      {
-        "type": "removed",
-        "key": "proxy",
-        "value": "123.234.53.22"
-      },
-      {
-        "type": "changed",
-        "key": "timeout",
-        "oldValue": 50,
-        "newValue": 20
-      },
-      {
-        "type": "added",
-        "key": "verbose",
-        "value": true
-      }
-    ]
-  }
+  "type": "root",
+  "depth": 0,
+  "children": [
+    {
+      "type": "removed",
+      "depth": 1,
+      "key": "follow",
+      "value": false
+    },
+    {
+      "type": "noChanges",
+      "depth": 1,
+      "key": "host",
+      "value": "hexlet.io"
+    },
+    {
+      "type": "removed",
+      "depth": 1,
+      "key": "proxy",
+      "value": "123.234.53.22"
+    },
+    {
+      "type": "changed",
+      "depth": 1,
+      "key": "timeout",
+      "oldValue": 50,
+      "newValue": 20
+    },
+    {
+      "type": "added",
+      "depth": 1,
+      "key": "verbose",
+      "value": true
+    }
+  ]
+}
