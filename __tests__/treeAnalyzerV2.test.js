@@ -1,5 +1,4 @@
 import {describe, expect, test} from "@jest/globals";
-import parser from "../src/parser.js";
 import readFileIn from "../src/fileReader.js";
 import analyzeTree from "../src/treeAnalyzerV2.js";
 
