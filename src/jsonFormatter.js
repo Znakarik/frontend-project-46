@@ -4,21 +4,53 @@ function format(tree) {
 
     const workingTree = tree.depth === 0 ? tree.children : tree;
 
-    const keys = workingTree.map(element => {
-        return element.key;
-    });
+
+    function getKeysFromObject(treeInsideGetKeysFromObject) {
+        // if(treeInsideGetKeysFromObject.type === 'nested') {
+        //     getKeysFromObject(treeInsideGetKeysFromObject.children);
+        // }
+        const getKeysFromObjectResult = treeInsideGetKeysFromObject.map(element => {
+            // console.log("inside getKeysFromObject . key = " + element.key);
+            return element.key;
+        });
+        console.log("getKeysFromObjectResult = " + getKeysFromObjectResult);
+        return getKeysFromObjectResult;
+    }
+
+    const keys = getKeysFromObject(workingTree);
 
     console.log("keys = " + keys);
+
+    function formatByKeys(keysInsideFormatByKeys, workingTreeInsideFormatByKeys) {
+        console.log("keysInsideFormatByKeys = " + keysInsideFormatByKeys);
+        console.log("inside workingTreeInsideFormatByKeys = " + JSON.stringify(workingTreeInsideFormatByKeys));
+        // workingTreeInsideFormatByKeys = workingTreeInsideFormatByKeys.type === 'nested' 
+        //     ?  workingTreeInsideFormatByKeys.children
+        //     : workingTreeInsideFormatByKeys;
+        if(workingTreeInsideFormatByKeys.type === 'nested') {
+            return innerFormat(workingTreeInsideFormatByKeys.depth, workingTreeInsideFormatByKeys.children, workingTreeInsideFormatByKeys.key);
+        }
+        return keysInsideFormatByKeys.map(key => {
+            const elementByKey = workingTreeInsideFormatByKeys[key] === undefined 
+            ? workingTreeInsideFormatByKeys.filter(element => element.key === key)[0]
+            : workingTreeInsideFormatByKeys[key];
+            return innerFormat(elementByKey.depth, elementByKey, key);
+        }).join("\n");   
+    }
 
     function innerFormat(depth, innerTree, key) {
         console.log("input key = " + key);
 
-        if(typeof innerTree[key] === 'object') {
-            return innerFormat(innerTree[key].depth, innerTree[key], key);
+        if(innerTree.type === 'nested') {
+            console.log("got requirsive = " + JSON.stringify(innerTree));
+            // return formatByKeys(getKeysFromObject(innerTree.children), innerTree);
+            return formatByKeys(getKeysFromObject(innerTree.children), innerTree.children);
+            // return innerFormat(innerTree.depth, innerTree.children, key);
         }
 
         let stringBeforeField = "    ".repeat(depth);
         stringBeforeField = stringBeforeField.substring(stringBeforeField.length - 2);
+
         if(innerTree.type === 'added') {
             stringBeforeField += "+ ";
         } else if(innerTree.type === 'changed') {
@@ -34,16 +66,7 @@ function format(tree) {
         return `${stringBeforeField}${key}: ${innerTree.value}`
     }
 
-    const formattedKeys = keys.map(key => {
-        const elementByKey = workingTree[key] === undefined 
-        ? workingTree.filter(element => element.key === key)[0]
-        : workingTree[key];
-
-        console.log("key = " + key);
-        console.log("elementByKey = " + JSON.stringify(elementByKey));
-        return innerFormat(elementByKey.depth, elementByKey, key);
-    }).join("\n");
-
+    const formattedKeys = formatByKeys(keys, workingTree);
     result += formattedKeys;
     result += "\n}";
     // console.log("result = \n" + result);
